@@ -1,0 +1,63 @@
+/* components/Spinner.module.css */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  grid-column: 1 / -1; /* s'étend sur toute la largeur de la grille */
+}
+
+.text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* ── Anneau animé ── */
+.ring {
+  display: inline-block;
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin: 4px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.ring div:nth-child(1) {
+  border-top-color: var(--color-gold);
+  animation-delay: -0.45s;
+}
+
+.ring div:nth-child(2) {
+  border-top-color: rgba(244, 168, 37, 0.55);
+  animation-delay: -0.3s;
+}
+
+.ring div:nth-child(3) {
+  border-top-color: rgba(244, 168, 37, 0.25);
+  animation-delay: -0.15s;
+}
+
+.ring div:nth-child(4) {
+  border-top-color: rgba(244, 168, 37, 0.08);
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
