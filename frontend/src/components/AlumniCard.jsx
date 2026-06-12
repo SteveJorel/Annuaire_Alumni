@@ -1,64 +1,69 @@
-// components/AlumniCard.jsx
-// Carte individuelle d'un profil Alumni
-// NOTE : Ce composant est la responsabilité du Membre 4 (UI & Design).
-// Cette version est un placeholder fonctionnel pour que l'App tourne.
+import React from "react";
 
-import styles from './AlumniCard.module.css';
-
-/**
- * @param {Object} props
- * @param {Object} props.alumni — profil alumni depuis l'API
- */
-function AlumniCard({ alumni }) {
-  const { fullName, graduationYear, company, jobTitle, skills, contactEmail } = alumni;
-
-  // Initiales pour l'avatar par défaut
-  const initials = fullName
-    .trim()
-    .split(' ')
-    .map((n) => n[0]?.toUpperCase() ?? '')
-    .slice(0, 2)
-    .join('');
-
+const AlumniCard = ({ alumni }) => {
   return (
-    <article className={styles.card}>
-      {/* Avatar par défaut avec initiales */}
-      <div className={styles.avatar} aria-hidden="true">
-        {initials}
+    <div style={{
+      background: "#1c1c1c",
+      padding: "20px",
+      borderRadius: "12px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+      border: "1px solid rgba(244,168,37,0.15)",
+      color: "#f0ede6"
+    }}>
+
+      {/* Avatar */}
+      <div style={{
+        width: "44px", height: "44px",
+        borderRadius: "50%",
+        background: "#f4a825",
+        color: "#0d0d0d",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        fontWeight: "bold", fontSize: "18px",
+        marginBottom: "12px"
+      }}>
+        {alumni.fullName?.charAt(0).toUpperCase()}
       </div>
 
-      {/* Infos principales */}
-      <div>
-        <h3 className={styles.name}>{fullName.trim()}</h3>
-        <p className={styles.meta}>{jobTitle} · {company}</p>
+      {/* Nom */}
+      <h3 style={{ margin: "0 0 4px", fontSize: "16px", fontWeight: "700" }}>
+        {alumni.fullName}
+      </h3>
+
+      {/* Poste + Entreprise */}
+      <p style={{ color: "#8a8478", fontSize: "14px", margin: "0 0 4px" }}>
+        {alumni.jobTitle} · {alumni.company}
+      </p>
+
+      {/* Année de promotion */}
+      <p style={{ color: "#f4a825", fontSize: "12px", margin: "0 0 10px", fontWeight: "600" }}>
+        Promo {alumni.graduationYear}
+      </p>
+
+      {/* Badges compétences */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
+        {alumni.skills?.map((skill, i) => (
+          <span key={i} style={{
+            background: "rgba(244,168,37,0.12)",
+            color: "#f4a825",
+            padding: "3px 8px",
+            borderRadius: "6px",
+            fontSize: "12px",
+            border: "1px solid rgba(244,168,37,0.25)"
+          }}>
+            {skill}
+          </span>
+        ))}
       </div>
 
-      {/* Badge promotion */}
-      <span className={styles.promo}>Promo {graduationYear}</span>
-
-      {/* Pastilles compétences */}
-      {skills?.length > 0 && (
-        <div className={styles.skills} aria-label="Compétences">
-          {skills.map((skill) => (
-            <span key={skill} className={styles.skill}>
-              {skill}
-            </span>
-          ))}
-        </div>
-      )}
-
-      {/* Liens contact */}
-      <div className={styles.links}>
-        <a
-          href={`mailto:${contactEmail}`}
-          className={styles.link}
-          aria-label={`Envoyer un email à ${fullName}`}
-        >
-          ✉ Email
-        </a>
-      </div>
-    </article>
+      {/* Lien email cliquable */}
+      <a href={`mailto:${alumni.contactEmail}`} style={{
+        color: "#8a8478", fontSize: "12px",
+        textDecoration: "none"
+      }}>
+        ✉ {alumni.contactEmail}
+      </a>
+    </div>
   );
-}
+};
 
 export default AlumniCard;
