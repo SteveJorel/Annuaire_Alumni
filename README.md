@@ -1,6 +1,6 @@
 # Annuaire des Alumni 
 
-> Application Full-Stack permettant aux anciens étudiants du département de Génie Informatique de l'ENSPM de créer leur profil et d'être retrouvés facilement par leurs pairs.
+> Application Full-Stack permettant aux anciens étudiants du département d'INFOTEL de l'ENSPM de créer leur profil et d'être retrouvés facilement par leurs pairs.
 
 
 ##  Table des matières

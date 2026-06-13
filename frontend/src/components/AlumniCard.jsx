@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-const AlumniCard = ({ alumni }) => {
+const AlumniCard = ({ alumni, onDelete }) => {
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const handleDelete = () => {
+    if (!confirmDelete) {
+      setConfirmDelete(true);
+      setTimeout(() => setConfirmDelete(false), 3000);
+      return;
+    }
+    onDelete?.(alumni._id);
+  };
+
   return (
     <div style={{
       background: "#1c1c1c",
@@ -8,8 +19,34 @@ const AlumniCard = ({ alumni }) => {
       borderRadius: "12px",
       boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
       border: "1px solid rgba(244,168,37,0.15)",
-      color: "#f0ede6"
+      color: "#f0ede6",
+      position: "relative"
     }}>
+
+      {/* Bouton suppression carte */}
+      <button
+        onClick={handleDelete}
+        title={confirmDelete ? "Cliquer encore pour confirmer" : "Supprimer ce profil"}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: confirmDelete ? "rgba(239,68,68,0.2)" : "rgba(255,255,255,0.05)",
+          border: confirmDelete ? "1px solid rgba(239,68,68,0.5)" : "1px solid rgba(255,255,255,0.1)",
+          color: confirmDelete ? "#ef4444" : "#8a8478",
+          borderRadius: "6px",
+          width: "26px",
+          height: "26px",
+          fontSize: "13px",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transition: "all 0.2s",
+        }}
+      >
+        ✕
+      </button>
 
       {/* Avatar */}
       <div style={{
@@ -25,7 +62,7 @@ const AlumniCard = ({ alumni }) => {
       </div>
 
       {/* Nom */}
-      <h3 style={{ margin: "0 0 4px", fontSize: "16px", fontWeight: "700" }}>
+      <h3 style={{ margin: "0 0 4px", fontSize: "16px", fontWeight: "700", paddingRight: "30px" }}>
         {alumni.fullName}
       </h3>
 
@@ -62,6 +99,21 @@ const AlumniCard = ({ alumni }) => {
       }}>
         ✉ {alumni.contactEmail}
       </a>
+
+      {/* Message de confirmation suppression */}
+      {confirmDelete && (
+        <p style={{
+          marginTop: "10px",
+          fontSize: "11px",
+          color: "#ef4444",
+          background: "rgba(239,68,68,0.08)",
+          border: "1px solid rgba(239,68,68,0.2)",
+          borderRadius: "6px",
+          padding: "5px 8px"
+        }}>
+          ⚠ Cliquer encore pour confirmer la suppression
+        </p>
+      )}
     </div>
   );
 };

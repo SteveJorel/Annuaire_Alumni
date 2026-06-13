@@ -2,7 +2,7 @@ import AlumniCard from "./AlumniCard";
 import React from "react";
 import Spinner from "./Spinner";
 
-const DirectoryGrid = ({ alumni = [], loading = false, error = "" }) => {
+const DirectoryGrid = ({ alumni = [], loading = false, error = "", onDelete={handleDelete} }) => {
 
   if (loading) {
     return <Spinner />;
@@ -10,7 +10,7 @@ const DirectoryGrid = ({ alumni = [], loading = false, error = "" }) => {
 
   if (error) {
     return (
-      <h3 style={{ textAlign: "center", marginTop: "30px", color: "red" }}>
+      <h3 style={{ textAlign: "center", marginTop: "30px", color: "#ef4444" }}>
         {error}
       </h3>
     );
@@ -32,7 +32,7 @@ const DirectoryGrid = ({ alumni = [], loading = false, error = "" }) => {
       padding: "20px"
     }}>
       {alumni.map((item) => (
-        <AlumniCard key={item._id} alumni={item} />
+        <AlumniCard key={item._id} alumni={item} onDelete={onDelete} />
       ))}
     </div>
   );
